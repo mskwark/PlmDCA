@@ -48,13 +48,12 @@ function ComputeScore(Jmat::Array{Float64,2}, var::PlmVar)
     for i=1:N-1
         for j=i+1:N
             FN[i,j] = vecnorm(J[1:q-1,1:q-1,l],2)
-#            FN[i,j] = vecnorm(J[:,:,l],2)
             FN[j,i] =FN[i,j]
             l+=1
         end
     end
     FN=GaussDCA.correct_APC(FN)
-    score = GaussDCA.compute_ranking(FN)
+    score = GaussDCA.compute_ranking(FN, 1)
     return score, FN, Jtensor
 end
 
